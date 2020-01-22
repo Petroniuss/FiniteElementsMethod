@@ -3,3 +3,6 @@ project/project
 target
 .ipynb_checkpoints
 .idea
+.metals
+.bloop
+project/metals.sbt
