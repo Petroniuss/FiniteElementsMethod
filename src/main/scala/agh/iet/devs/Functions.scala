@@ -21,7 +21,7 @@ object Functions {
 	}
 
 	implicit class RealSyntax(c: Real) {
-		def *(f: RealFunction): RealFunction = x => c * f(x)
+		def * (f: RealFunction): RealFunction = x => c * f(x)
 	}
 
 }

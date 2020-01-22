@@ -8,7 +8,6 @@ object FiniteElementsMethod {
 	         (beta: Real, gamma: Real, uR: Real, n: Int): RealFunction = {
 		new FiniteElementsMethod(a, b, c, f)(beta, gamma, uR, n).solve()
 	}
-
 }
 
 class FiniteElementsMethod
@@ -38,20 +37,14 @@ class FiniteElementsMethod
 	}
 
 	def Bij(i: Int, j: Int): Real = {
-		if (i < n) {
-			b(e(j), e(i), eDerivative(j), eDerivative(i))
-		} else if (j == n) {
-			1.0
-		} else {
-			0.0
-		}
+		if (i < n)       b(e(j), e(i), eDerivative(j), eDerivative(i))
+		else if (j == n) 1.0
+		else             0.0
 	}
 
 	def Li(i: Int): Real = if (i == n) uR else l(e(i))
 
-	def l(v: RealFunction): Real = {
-		boundedIntegral(v * f) - gamma * v(0)
-	}
+	def l(v: RealFunction): Real = boundedIntegral(v * f) - gamma * v(0)
 
 	def b(u: RealFunction, v: RealFunction, du: RealFunction, dv: RealFunction): Real = {
 		boundedIntegral(v * b * du) +
@@ -60,29 +53,19 @@ class FiniteElementsMethod
 	}
 
 	def e(i: Int)(x: Double): Real = {
-		if (x < 0 || x > 1)
-			return 0.0
+		if (x < 0 || x > 1) return 0.0
 
-		if (x >= xi(i - 1) && x <= xi(i)) {
-			(x - xi(i - 1)) / deltaX
-		} else if (x >= xi(i) && x <= xi(i + 1)) {
-			(xi(i + 1) - x) / deltaX
-		} else {
-			0.0
-		}
+		if (x >= xi(i - 1) && x <= xi(i))      (x - xi(i - 1)) / deltaX
+		else if (x >= xi(i) && x <= xi(i + 1)) (xi(i + 1) - x) / deltaX
+		else                                   0.0
 	}
 
 	def eDerivative(i: Int)(x: Double): Real = {
-		if (x < 0 || x > 1)
-			return 0.0
+		if (x < 0 || x > 1) return 0.0
 
-		if (x >= xi(i - 1) && x <= xi(i)) {
-			1.0 / deltaX
-		} else if (x >= xi(i) && x <= xi(i + 1)) {
-			-1.0 / deltaX
-		} else {
-			0.0
-		}
+		if (x >= xi(i - 1) && x <= xi(i))       1.0 / deltaX
+		else if (x >= xi(i) && x <= xi(i + 1)) -1.0 / deltaX
+		else                                    0.0
 	}
 
 	def xi(i: Int): Real = i * deltaX
