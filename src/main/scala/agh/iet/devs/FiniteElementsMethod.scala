@@ -31,7 +31,7 @@ class FiniteElementsMethod
 
 		val uis = for (
 			i <- 0 to n;
-			ui = Functions.const(U(i)) * e(i)
+			ui = U(i) * e(i)
 		) yield ui
 
 		uis.foldLeft(Functions.const(0))((acc, ui) => acc + ui)

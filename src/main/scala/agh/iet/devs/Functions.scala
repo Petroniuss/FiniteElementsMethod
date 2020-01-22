@@ -20,4 +20,8 @@ object Functions {
 		def compose (g: RealFunction): RealFunction = x => f(g(x))
 	}
 
+	implicit class RealSyntax(c: Real) {
+		def *(f: RealFunction): RealFunction = x => c * f(x)
+	}
+
 }
