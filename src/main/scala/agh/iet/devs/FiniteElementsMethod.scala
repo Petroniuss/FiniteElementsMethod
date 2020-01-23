@@ -26,11 +26,16 @@ class FiniteElementsMethod
 		for (i <- 0 to n;
 			 j <- 0 to n) B(i)(j) = Bij(i, j)
 
+//		println("---B---\n" + B)
+//		println("---L---\n" + L)
+
 		val U = LinearEqSolver.thomas(B, L, n + 1)
+
+//		println("---U---\n" + U)
 
 		val uis = for (
 			i <- 0 to n;
-			ui = U(i) * e(i)
+			ui = U(i) * (e(i): RealFunction)
 		) yield ui
 
 		uis.foldLeft(Functions.const(0))((acc, ui) => acc + ui)
